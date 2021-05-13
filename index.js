@@ -13,9 +13,9 @@ io.on("connection", (socket) => {
   console.log("New user has joined");
   io.emit("joined");
 
-  socket.on("chat message", (msg, nick) => {
-    io.emit("chat message", msg, nick);
-    console.log(nick + ": " + msg);
+  socket.on("chat message", (msg, name) => {
+    io.emit("chat message", msg, name);
+    console.log(name + ": " + msg);
   });
 });
 
