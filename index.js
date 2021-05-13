@@ -13,6 +13,7 @@ let users = {};
 
 io.on("connection", (socket) => {
   console.log("New user has joined");
+  io.emit("joined");
 
   socket.on("chat message", (msg, nick) => {
     users[nick] = socket.id;

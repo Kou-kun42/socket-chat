@@ -78,6 +78,13 @@
         }
       });
 
+      socket.on("joined", function (msg) {
+        var item = document.createElement("li");
+        item.innerText = "New user has joined";
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+
       socket.on("chat message", function (msg) {
         var item = document.createElement("li");
         item.innerHTML =
