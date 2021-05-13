@@ -9,9 +9,15 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
+let users = {};
+
 io.on("connection", (socket) => {
-  socket.on("chat message", (msg) => {
-    console.log("message: " + msg);
+  console.log("New user has joined");
+
+  socket.on("chat message", (msg, nick) => {
+    users[nick] = socket.id;
+    io.emit("chat message", msg, nick);
+    console.log(nick + ": " + msg);
   });
 });
 

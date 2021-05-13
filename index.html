@@ -58,8 +58,11 @@
   <body>
     <ul id="messages"></ul>
     <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
+      <input id="input" autocomplete="off" />
+      <input id="nick" autocomplete="off" />
+      <button>Send</button>
     </form>
+    <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
 
@@ -69,15 +72,16 @@
 
       form.addEventListener("submit", function (e) {
         e.preventDefault();
-        if (input.value) {
-          socket.emit("chat message", input.value);
+        if (input.value && nick.value) {
+          socket.emit("chat message", input.value, nick.value);
           input.value = "";
         }
       });
 
       socket.on("chat message", function (msg) {
         var item = document.createElement("li");
-        item.textContent = msg;
+        item.innerHTML =
+          "<p><strong>" + nick.value + "</strong>" + ": " + msg + "<p>";
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
       });
